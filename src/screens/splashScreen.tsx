@@ -46,8 +46,8 @@ const SplashScreen = ({ navigation }: any) => {
         <View style={styles.__container}>
             <Animated.Image source={images?.splashBottomShape1} style={[styles.__backgroundShape1, animatedShape1]} />
             <Animated.Image source={images?.splashBottomShape2} style={[styles.__backgroundShape2, animatedShape2]} />
-            <Animated.Image source={images.logo} style={[styles.__logo, animatedOpacity]} />
-            <StatusBar style='dark' backgroundColor={colors.white} />
+            <Animated.Image sharedTransitionTag='logo' source={images.whiteLogo} style={[styles.__logo, animatedOpacity]} />
+            <StatusBar style='light' translucent />
         </View>
     )
 }
@@ -57,7 +57,7 @@ export default SplashScreen;
 const styles = StyleSheet.create({
     __container: {
         flex: 1,
-        backgroundColor: colors.white,
+        backgroundColor: colors.primary,
         alignItems: 'center',
         justifyContent: 'center'
     },
