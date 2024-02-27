@@ -4,4 +4,5 @@ export const images = {
     splashBottomShape1: require('../assets/images/splashscreen_section1.png'),
     splashBottomShape2: require('../assets/images/splashscreen_section2.png'),
     homeScreenbg1: require('../assets/images/homescreenBg.png'),
+    schedulebg: require('../assets/images/scheduleBg.jpg'),
 }

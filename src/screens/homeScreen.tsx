@@ -1,31 +1,22 @@
-import { Image, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React, { useEffect } from 'react'
+import { ImageBackground, StyleSheet, TouchableOpacity, View } from 'react-native'
+import React from 'react'
 import { StatusBar } from 'expo-status-bar';
-import { StatusBarHeight, colors, height, images, width } from '../utilities/utilities';
+import { colors, images, } from '../utilities/utilities';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useFonts } from 'expo-font';
-import Animated, { FadeIn, FadeInDown, FadeInLeft, FadeInRight, FadeInUp } from 'react-native-reanimated';
+import Animated, { FadeInDown, FadeInRight, } from 'react-native-reanimated';
+import BasicHeader from '../components/BasicHeader';
 
 const HomeScreen = ({ navigation }: any) => {
-
     const [fontsLoaded] = useFonts({
         'Nunito-Bold': require('../../assets/fonts/Nunito-Bold.ttf'),
         'Nunito-Light': require('../../assets/fonts/Nunito-Light.ttf'),
     });
 
-
     return (
         <View style={styles.__container}>
             <ImageBackground source={images.homeScreenbg1} style={StyleSheet.absoluteFill} />
-            {/* have to create a Header component */}
-            <View style={styles.__header}>
-                <Animated.Image entering={FadeInLeft.duration(800).delay(500)} sharedTransitionTag='logo' source={images.whiteLogo} style={styles.__logo} />
-                <Animated.View entering={FadeInRight.duration(800).delay(500)}>
-                    <TouchableOpacity style={styles.__settingButton}>
-                        <Ionicons name="settings" size={32} color={colors.lightGrayishOrange} />
-                    </TouchableOpacity>
-                </Animated.View>
-            </View>
+            <BasicHeader showLogo showRightButton />
             <View style={styles.__bottomContents}>
                 <View style={styles.__textArea}>
                     <Animated.Text entering={FadeInDown.duration(800).delay(500)} style={styles.__textHeader}>Personalize Yoga</Animated.Text>
@@ -51,22 +42,6 @@ const styles = StyleSheet.create({
         backgroundColor: colors.white,
         justifyContent: 'space-between'
     },
-    __header: {
-        marginTop: StatusBarHeight,
-        marginHorizontal: 15,
-        height: 80,
-        flexDirection: "row",
-        justifyContent: 'space-between',
-        alignItems: 'center',
-    },
-    __logo: {
-        width: 50,
-        height: 50
-    },
-    __settingButton: {
-        padding: 10,
-        borderRadius: 60,
-    },
     __bottomContents: {
         justifyContent: 'flex-end',
         marginHorizontal: 15,
@@ -88,7 +63,6 @@ const styles = StyleSheet.create({
         color: colors.verySoftOrange
     },
     __bottomRightButton: {
-        marginTop: 5,
         alignSelf: 'flex-end',
         padding: 10,
         borderRadius: 60,
