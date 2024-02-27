@@ -7,6 +7,6 @@ export const StatusBarHeight: any = StatusBar.currentHeight;
 
 export { images } from './images';
 
-export { Colors } from './colors';
+export { colors } from './colors';
 
 export const currency = '\u20B9';
