@@ -23,13 +23,14 @@ const HomeScreen = ({ navigation }: any) => {
                     <Animated.Text entering={FadeInDown.duration(800).delay(600)} style={styles.__subHeader}>{`Meditate and learn yoga\nanytime at home or\non the go`}</Animated.Text>
                 </View>
             </View>
-            <Animated.View style={{ position: 'absolute', bottom: 15, right: 15 }} entering={FadeInRight.duration(800).delay(500)}>
-                <TouchableOpacity onPress={() => navigation.navigate('ScheduleSessions')} style={styles.__bottomRightButton}>
-                    <Ionicons size={32} name='calendar' color={colors.verySoftOrange} />
-                </TouchableOpacity>
-            </Animated.View>
+            <View style={styles.__bottomRightButtonWrapper}>
+                <Animated.View entering={FadeInRight.duration(800).delay(700)}>
+                    <TouchableOpacity onPress={() => navigation.navigate('ScheduleSessions')} style={styles.__bottomRightButton}>
+                        <Ionicons size={32} name='calendar' color={colors.verySoftOrange} />
+                    </TouchableOpacity>
+                </Animated.View>
+            </View>
             <StatusBar style='light' backgroundColor={colors.black} />
-
         </View>
     )
 }
@@ -61,6 +62,11 @@ const styles = StyleSheet.create({
         fontSize: 18,
         marginTop: 5,
         color: colors.verySoftOrange
+    },
+    __bottomRightButtonWrapper: {
+        position: 'absolute',
+        bottom: 15,
+        right: 15
     },
     __bottomRightButton: {
         alignSelf: 'flex-end',

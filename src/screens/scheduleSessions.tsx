@@ -1,11 +1,13 @@
-import { FlatList, Image, ImageBackground, StyleSheet, Text, View } from 'react-native'
+import { FlatList, Image, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { colors, height, images, width } from '../utilities/utilities'
 import { StatusBar } from 'expo-status-bar'
 import BasicHeader from '../components/BasicHeader';
 import { BlurView } from 'expo-blur';
 import { useFonts } from 'expo-font';
-import Animated, { FadeInDown } from 'react-native-reanimated';
+import Animated, { FadeInDown, FadeInRight } from 'react-native-reanimated';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import Feather from '@expo/vector-icons/Feather';
 
 const ScheduleSessions = ({ navigation }: any) => {
     const [fontsLoaded] = useFonts({
@@ -15,6 +17,12 @@ const ScheduleSessions = ({ navigation }: any) => {
     const data = [
         { time: `11\nAM`, title: 'Hiper Depression', duration: '1 hour' },
         { time: `10:30\nPM`, title: 'Workout', duration: '1 hour' },
+        { time: `12\nAM`, title: 'Hiper Depression', duration: '1 hour' },
+        { time: `09:30\nPM`, title: 'Workout', duration: '1 hour' },
+        { time: `05\nAM`, title: 'Hiper Depression', duration: '1 hour' },
+        { time: `11:30\nPM`, title: 'Workout', duration: '1 hour' },
+        { time: `08\nAM`, title: 'Hiper Depression', duration: '1 hour' },
+        { time: `06:30\nPM`, title: 'Workout', duration: '1 hour' },
     ]
 
     const dateList = [
@@ -32,7 +40,8 @@ const ScheduleSessions = ({ navigation }: any) => {
             <BasicHeader onPressLeftIcon={() => navigation.goBack()} leftIconColor={colors.white} leftIconBackDrop={colors.backdrop} />
             <View>
                 <Animated.View entering={FadeInDown.duration(800).delay(500)} style={styles.__horizontalListWrapper}>
-                    <BlurView intensity={10} tint='extraLight' experimentalBlurMethod='dimezisBlurView'>
+                    {/* set the value for intensity to 10 if experimentalBlurMethod true */}
+                    <BlurView intensity={50} tint='extraLight' >
                         <Text style={styles.__todayText}>Today is <Text style={styles.__currentDay}>Sunday</Text></Text>
                         <FlatList
                             data={dateList}
@@ -42,21 +51,23 @@ const ScheduleSessions = ({ navigation }: any) => {
                             contentContainerStyle={styles.__caleandarWrapper}
                             showsHorizontalScrollIndicator={false}
                             renderItem={({ index, item }) => (
-                                <View key={index} style={styles.__dateContainer}>
+                                <TouchableOpacity activeOpacity={0.6} key={index} style={styles.__dateContainer}>
                                     <Text style={styles.__date}>{item?.date}</Text>
                                     <Text style={styles.__day}>{item?.day}</Text>
-                                </View>
+                                </TouchableOpacity>
                             )}
                         />
                     </BlurView>
                 </Animated.View>
                 <Animated.View entering={FadeInDown.duration(800).delay(600)} style={styles.__listWrapper}>
-                    <BlurView intensity={40} experimentalBlurMethod='dimezisBlurView' style={styles.__scheduleListContainer}>
+                    {/* set the value for intensity to 40 if experimentalBlurMethod true */}
+                    <BlurView intensity={80} style={styles.__scheduleListContainer} >
                         <FlatList
                             data={data}
                             showsVerticalScrollIndicator={false}
+                            contentContainerStyle={styles.__scheduleContainer}
                             renderItem={({ index, item }) => (
-                                <View key={index} style={styles.__itemContainer}>
+                                <TouchableOpacity activeOpacity={0.6} key={index} style={styles.__itemContainer}>
                                     <View style={styles.__timeContainer}>
                                         <Text style={styles.__time}>{item?.time}</Text>
                                     </View>
@@ -64,12 +75,17 @@ const ScheduleSessions = ({ navigation }: any) => {
                                         <Text style={styles.__title}>{item?.title}</Text>
                                         <Text style={styles.__duration}>{item?.duration}</Text>
                                     </View>
-                                </View>
+                                </TouchableOpacity>
                             )}
                         />
                     </BlurView>
                 </Animated.View>
             </View>
+            <Animated.View style={styles.__bottomRightButtonWrapper} entering={FadeInRight.duration(800).delay(500)}>
+                <TouchableOpacity onPress={() => navigation.navigate('ScheduleSessions')} style={styles.__bottomRightButton}>
+                    <Feather size={32} name='plus' color={colors.darkBrown} />
+                </TouchableOpacity>
+            </Animated.View>
             <StatusBar style='dark' translucent />
         </View>
     )
@@ -97,14 +113,15 @@ const styles = StyleSheet.create({
 
     },
     __todayText: {
-        fontFamily: 'Nunito-Bold',
+        fontFamily: 'Nunito-Light',
         fontSize: 25,
         paddingVertical: 10,
         paddingHorizontal: 15,
-        color: colors.lightGrayishOrange
+        color: colors.primary
     },
     __currentDay: {
-        color: colors.verySoftOrange
+        color: colors.darkBrown,
+        fontFamily: 'Nunito-Bold',
     },
     __listWrapper: {
         overflow: 'hidden',
@@ -115,6 +132,9 @@ const styles = StyleSheet.create({
         paddingTop: 5,
         height: height / 1.70,
     },
+    __scheduleContainer: {
+        paddingBottom: 80
+    },
     __calendarContainer: {
         marginBottom: 10,
     },
@@ -122,7 +142,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
     },
     __itemContainer: {
-        marginVertical: 10,
+        marginTop: 10,
         marginHorizontal: 15,
         backgroundColor: colors.lightGrayishOrange,
         borderRadius: 15,
@@ -138,7 +158,8 @@ const styles = StyleSheet.create({
     __time: {
         fontFamily: 'Nunito-Bold',
         fontSize: 18,
-        textAlign: 'center'
+        textAlign: 'center',
+        color: colors.darkBrown
     },
     __detailsContainer: {
         padding: 10,
@@ -167,11 +188,25 @@ const styles = StyleSheet.create({
         fontFamily: 'Nunito-Bold',
         fontSize: 18,
         textAlign: 'center',
+        color: colors.darkBrown
     },
     __day: {
         marginTop: 4,
         fontFamily: 'Nunito-Light',
         fontSize: 16,
-        textAlign: 'center'
+        textAlign: 'center',
+        color: colors.darkBrown
+    },
+    __bottomRightButtonWrapper: {
+        position: 'absolute',
+        bottom: 15,
+        right: 15,
+    },
+    __bottomRightButton: {
+        alignSelf: 'flex-end',
+        padding: 10,
+        borderRadius: 60,
+        borderColor: colors.darkBrown,
+        borderWidth: 1,
     },
 })

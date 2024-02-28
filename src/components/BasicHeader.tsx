@@ -1,7 +1,7 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { StatusBarHeight, colors, images } from '../utilities/utilities'
-import Animated, { FadeInLeft, FadeInRight } from 'react-native-reanimated'
+import Animated, { FadeIn, FadeInLeft, FadeInRight } from 'react-native-reanimated'
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 interface Props {
@@ -27,18 +27,20 @@ const BasicHeader = ({
 }: Props) => {
     return (
         <View style={[styles.__header, { justifyContent: showRightButton ? 'space-between' : 'flex-start' }]}>
-            {showLogo ? <Animated.Image entering={FadeInLeft.duration(800).delay(500)} sharedTransitionTag='logo' source={images.whiteLogo} style={styles.__logo} />
-                : <Animated.View entering={FadeInLeft.duration(800).delay(500)}>
+            {showLogo ? <Animated.Image entering={FadeInLeft.duration(800).delay(700)} sharedTransitionTag='logo' source={images.whiteLogo} style={styles.__logo} />
+                : <Animated.View entering={FadeInLeft.duration(800).delay(700)}>
                     <TouchableOpacity onPress={onPressLeftIcon} style={[styles.__leftButton, { borderColor: leftIconColor, backgroundColor: !!leftIconBackDrop ? leftIconBackDrop : '' }]}>
                         <Ionicons name={leftIconName} size={32} color={leftIconColor} />
                     </TouchableOpacity>
                 </Animated.View>
             }
-            {showRightButton && <Animated.View entering={FadeInRight.duration(800).delay(500)}>
-                <TouchableOpacity onPress={onPressRightIcon} style={[styles.__rightButton, { borderColor: rightIconColor }]}>
-                    <Ionicons name="settings" size={32} color={rightIconColor} />
-                </TouchableOpacity>
-            </Animated.View>}
+            {showRightButton && <View>
+                <Animated.View entering={FadeInRight.duration(800).delay(700)}>
+                    <TouchableOpacity onPress={onPressRightIcon} style={[styles.__rightButton, { borderColor: rightIconColor }]}>
+                        <Ionicons name="settings" size={32} color={rightIconColor} />
+                    </TouchableOpacity>
+                </Animated.View>
+            </View>}
         </View>
     )
 }
