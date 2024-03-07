@@ -5,6 +5,7 @@ export const colors = {
     darkBrown: '#3D302B',
     lightGrayishOrange: '#e7d8c9',
     verySoftOrange: '#E7CBAE',
-    backdrop: 'rgba(0,0,0,.3)'
+    backdrop: 'rgba(0,0,0,.3)',
+    lightWhitedrop: 'rgba(225,225,225,.3)'
 
 }

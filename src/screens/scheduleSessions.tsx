@@ -42,7 +42,9 @@ const ScheduleSessions = ({ navigation }: any) => {
                 <Animated.View entering={FadeInDown.duration(800).delay(500)} style={styles.__horizontalListWrapper}>
                     {/* set the value for intensity to 10 if experimentalBlurMethod true */}
                     <BlurView intensity={50} tint='extraLight' >
-                        <Text style={styles.__todayText}>Today is <Text style={styles.__currentDay}>Sunday</Text></Text>
+                        <View style={styles.__dayWrapper}>
+                            <Text style={styles.__todayText}>Today is <Text style={styles.__currentDay}>Sunday</Text></Text>
+                        </View>
                         <FlatList
                             data={dateList}
                             horizontal
@@ -83,7 +85,7 @@ const ScheduleSessions = ({ navigation }: any) => {
             </View>
             <Animated.View style={styles.__bottomRightButtonWrapper} entering={FadeInRight.duration(800).delay(500)}>
                 <TouchableOpacity onPress={() => navigation.navigate('ScheduleSessions')} style={styles.__bottomRightButton}>
-                    <Feather size={32} name='plus' color={colors.darkBrown} />
+                    <Feather size={32} name='plus' color={colors.white} />
                 </TouchableOpacity>
             </Animated.View>
             <StatusBar style='dark' translucent />
@@ -112,15 +114,19 @@ const styles = StyleSheet.create({
         margin: 10,
 
     },
+    __dayWrapper: {
+        borderRadius: 25,
+        paddingVertical: 10,
+        paddingHorizontal: 15,
+        backgroundColor: colors.darkBrown,
+    },
     __todayText: {
         fontFamily: 'Nunito-Light',
         fontSize: 25,
-        paddingVertical: 10,
-        paddingHorizontal: 15,
-        color: colors.primary
+        color: colors.verySoftOrange
     },
     __currentDay: {
-        color: colors.darkBrown,
+        color: colors.lightGrayishOrange,
         fontFamily: 'Nunito-Bold',
     },
     __listWrapper: {
@@ -136,7 +142,7 @@ const styles = StyleSheet.create({
         paddingBottom: 80
     },
     __calendarContainer: {
-        marginBottom: 10,
+        marginVertical: 5,
     },
     __caleandarWrapper: {
         paddingHorizontal: 10,
@@ -203,10 +209,11 @@ const styles = StyleSheet.create({
         right: 15,
     },
     __bottomRightButton: {
+        backgroundColor: colors.backdrop,
         alignSelf: 'flex-end',
         padding: 10,
         borderRadius: 60,
-        borderColor: colors.darkBrown,
+        borderColor: colors.white,
         borderWidth: 1,
     },
 })
